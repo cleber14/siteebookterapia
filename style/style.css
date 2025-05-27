@@ -1,0 +1,83 @@
+@media  (max-width: 1024px) {
+    .hero-text {
+        width: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    .ebook-image {
+        width: 300px;
+    }
+  }
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+
+  .hero {
+    background-image: linear-gradient(45deg, rgb(0, 204, 255), rgb(226, 133, 245));
+    color: #fff;
+    padding: 60px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .hero-text {
+    max-width: 500px;
+  }
+
+  .hero h1 {
+    font-size: 2.5em;
+    margin: 0 0 10px;
+  }
+
+  .hero p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+
+  .hero a {
+    background-color: #fff;
+    color: #007BFF;
+    padding: 12px 24px;
+    font-size: 1em;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  .ebook-image {
+    max-width: 500px;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .section {
+    padding: 40px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+  }
+
+  .video,
+  .features {
+    flex: 1 1 300px;
+  }
+
+  .features ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .features li::before {
+    content: '✔';
+    color: #007BFF;
+    margin-right: 10px;
+  }
+
