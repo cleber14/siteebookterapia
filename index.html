@@ -145,13 +145,14 @@
     const $timerBar = $('.timer-bar');
     const timerBottom = $timerBar.offset().top + $timerBar.outerHeight();
 
-    // Seleciona todos os elementos após o timer
-    const $animatedElements = $('body *').filter(function () {
-      const offsetTop = $(this).offset()?.top;
-      return offsetTop && offsetTop > timerBottom;
-    });
+    // Seleciona todos os elementos após o timer, exceto o footer
+    const $animatedElements = $('body *')
+      .filter(function () {
+        const offsetTop = $(this).offset()?.top;
+        return offsetTop && offsetTop > timerBottom && !$(this).closest('footer').length;
+      });
 
-    // Aplica o estilo inicial
+    // Estilo inicial dos elementos animáveis
     $animatedElements.css({
       opacity: 0,
       transform: 'translateY(30px)',
@@ -170,7 +171,7 @@
       });
     }
 
-    // Aplica classe de animação
+    // Estilo da classe animate
     $('<style>')
       .prop('type', 'text/css')
       .html(`.animate {
@@ -182,6 +183,7 @@
     $(window).on('scroll', animateOnScroll);
     animateOnScroll();
   });
+
 </script>
 
 
@@ -207,7 +209,7 @@
     <p>Maria de Lurdes – Terapeuta Holística Digital</p>
     <p>&copy; <span id="footer-year"></span> Todos os direitos reservados.</p>
   </div>
-  
+
 </footer>
 
 </body>
