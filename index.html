@@ -5,8 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Maria de Lurdes</title>
   <link rel="stylesheet" href="style/style.css" class="css">
+  <style>
+    .timer-bar {
+      background-color: #004080;
+      color: #fff;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  </style>
 </head>
 <body>
+
+  <div class="timer-bar">
+    Oferta por tempo limitado! Peça já o seu Ebook nas próximas <span id="timer">24:00:00</span>
+  </div>
 
   <div class="hero">
     <div class="hero-text">
@@ -25,27 +40,176 @@
     <div class="features">
       <h2>Você irá aprender sobre:</h2>
       <ul>
-        <li>O que é a
-            ansiedade?</li>
-        <li>Técnicas do
-            diário da
-            ansiedade</li>
-        <li>Respirando
-            para a
-            Calma</li>
-        <li>Alimentação para
-            saúde mental
-           </li>
-        <li>Qual a importância
-            do exercício físico
-            para ansiedade?</li>
-        <li>Como Superar a
-            Ansiedade ao Falar
-            em Público
-           </li>
+        <li>O que é a ansiedade?</li>
+        <li>Técnicas do diário da ansiedade</li>
+        <li>Respirando para a Calma</li>
+        <li>Alimentação para saúde mental</li>
+        <li>Qual a importância do exercício físico para ansiedade?</li>
+        <li>Como Superar a Ansiedade ao Falar em Público</li>
       </ul>
     </div>
   </div>
 
+  <section>
+    <div class="container">
+    <div class="feature-box">
+      <div class="title">Acesso Imediato</div>
+      <div class="icon">
+        <img src="img/assets/Unlocked svg padlock.svg" alt="">
+      </div>
+      <div class="description">
+        Baixe seu ebook logo após a confirmação da compra e comece sua jornada agora.
+      </div>
+    </div>
+
+    <div class="feature-box">
+      <div class="title">Confiabilidade</div>
+      <div class="icon">
+        <img src="img/assets/secure.svg" alt="">
+      </div>
+      <div class="description">
+        Conteúdo criado por especialista com anos de experiência no combate à ansiedade.
+      </div>
+    </div>
+
+    <div class="feature-box">
+      <div class="title">Hotmart</div>
+      <div class="icon">
+        <img src="img/assets/hotmart.svg" alt="">
+      </div>
+      <div class="description">
+        Plataforma 100% segura, onde seu pagamento é protegido e o acesso é garantido.
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <section class="author-section">
+  <div class="author-container">
+    <div class="author-text">
+      <h2><span class="highlight">AUTORA |</span> MARIA DE LURDES</h2>
+      <p>
+        Maria de Lurdes é terapeuta holística digital especializada em ansiedade, medos e autoconhecimento.
+        Com anos de experiência auxiliando pessoas a reconquistarem a calma interior de forma natural, ela une
+        técnicas terapêuticas, práticas integrativas e conhecimento profundo sobre o comportamento humano.
+        Seu trabalho tem impactado a vida de centenas de pessoas que buscam equilíbrio emocional sem o uso
+        de medicamentos. Este eBook é um reflexo do seu propósito: tornar o bem-estar acessível e possível
+        para todos.
+      </p>
+    </div>
+    <div class="author-image">
+      <img src="img/assets/Lurdes.png" alt="Maria de Lurdes" style="width: 400px;">
+    </div>
+  </div>
+</section>
+
+
+  <script>
+  const countdownElement = document.getElementById("timer");
+
+  // Verifica se já existe um prazo salvo no localStorage
+  let deadline = localStorage.getItem("ebookTimerDeadline");
+
+  if (!deadline) {
+    // Se não existir, define o prazo para 24h a partir de agora
+    const now = new Date().getTime();
+    deadline = now + 24 * 60 * 60 * 1000;
+    localStorage.setItem("ebookTimerDeadline", deadline);
+  }
+
+  deadline = parseInt(deadline, 10); // Garante que seja um número
+
+  function updateTimer() {
+    const now = new Date().getTime();
+    let timeLeft = Math.max(0, deadline - now);
+
+    const hours = String(Math.floor((timeLeft / (1000 * 60 * 60)))).padStart(2, '0');
+    const minutes = String(Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+    const seconds = String(Math.floor((timeLeft % (1000 * 60)) / 1000)).padStart(2, '0');
+
+    countdownElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+    if (timeLeft <= 0) {
+      countdownElement.textContent = "00:00:00";
+    }
+  }
+
+  setInterval(updateTimer, 1000);
+  updateTimer();
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function () {
+    const $timerBar = $('.timer-bar');
+    const timerBottom = $timerBar.offset().top + $timerBar.outerHeight();
+
+    // Seleciona todos os elementos após o timer
+    const $animatedElements = $('body *').filter(function () {
+      const offsetTop = $(this).offset()?.top;
+      return offsetTop && offsetTop > timerBottom;
+    });
+
+    // Aplica o estilo inicial
+    $animatedElements.css({
+      opacity: 0,
+      transform: 'translateY(30px)',
+      transition: 'all 0.6s ease-out'
+    });
+
+    function animateOnScroll() {
+      $animatedElements.each(function () {
+        const elementTop = $(this).offset().top;
+        const scrollTop = $(window).scrollTop();
+        const windowHeight = $(window).height();
+
+        if (elementTop < scrollTop + windowHeight - 50) {
+          $(this).addClass('animate');
+        }
+      });
+    }
+
+    // Aplica classe de animação
+    $('<style>')
+      .prop('type', 'text/css')
+      .html(`.animate {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }`)
+      .appendTo('head');
+
+    $(window).on('scroll', animateOnScroll);
+    animateOnScroll();
+  });
+</script>
+
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <a href="https://www.instagram.com/seuusuario" target="_blank" class="footer-link">
+      <img src="img/assets/instagram.svg" alt="Instagram" class="footer-icon">
+      Instagram
+    </a>
+
+    <a href="https://wa.me/5511999999999" target="_blank" class="footer-link">
+      <img src="img/assets/whatsapp.svg" alt="WhatsApp" class="footer-icon">
+      WhatsApp
+    </a>
+
+    <a href="mailto:seuemail@exemplo.com" class="footer-link">
+      <img src="img/assets/email.svg" alt="E-mail" class="footer-icon">
+      E-mail
+    </a>
+  </div>
+
+   <div class="footer-info">
+    <p>Maria de Lurdes – Terapeuta Holística Digital</p>
+    <p>&copy; <span id="footer-year"></span> Todos os direitos reservados.</p>
+  </div>
+  
+</footer>
+
 </body>
+
 </html>
